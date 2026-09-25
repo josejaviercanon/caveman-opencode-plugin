@@ -25,11 +25,13 @@
   },
   "homepage": "https://github.com/argabor/caveman-opencode-plugin#readme",
   "scripts": {
-    "build": "bun run build.ts && tsc --emitDeclarationOnly",
-    "prepack": "bun run build",
+    "build": "node scripts/build.mjs",
+    "build:bun": "bun run build.ts && tsc --emitDeclarationOnly",
+    "prepack": "node scripts/build.mjs",
     "dev": "opencode plugin dev",
     "setup": "bun run src/setup.ts",
     "test": "bun test",
+    "test:package": "node --test tests/package.node.mjs",
     "test:watch": "bun test --watch"
   },
   "peerDependencies": {
@@ -38,6 +40,7 @@
   "devDependencies": {
     "@opencode-ai/plugin": "1.18.32",
     "@types/node": "25.6.0",
+    "esbuild": "^0.25.0",
     "typescript": "6.0.3"
   },
   "keywords": ["opencode", "plugin", "caveman"],
