@@ -1,5 +1,10 @@
 # @argabor/caveman-opencode-plugin
 
+> **Platform support: Windows 11 x64 only.**
+> This fork is developed, packaged and verified on Windows 11 x64 with all four
+> companion plugins (`opencode-elf`, `opencode-mem`, `openrtk`, `caveman`)
+> enabled in the same OpenCode process. Linux and macOS are not supported.
+
 Caveman communication mode plugin for [opencode](https://opencode.ai). Adapts [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) into a hook-based plugin.
 
 > Fork of [`caveman-opencode-plugin`](https://www.npmjs.com/package/caveman-opencode-plugin) by dantesCode, adding **OpenCode V2 support** (dual-generation export). Published under the `@argabor` scope.
@@ -151,13 +156,18 @@ Behavior mirrors [JuliusBrussee/caveman](https://github.com/JuliusBrussee/cavema
 
 ## Development
 
-Requires [Bun](https://bun.sh) for the build and tests.
+No [Bun](https://bun.sh) required on Windows. The build and the package smoke
+test run on plain Node.js; only the original upstream unit tests use `bun test`.
 
 ```sh
-bun install
-bun test
-bun run build      # emits dist/index.js + .d.ts
+npm install
+npm test           # upstream suite (requires bun)
+npm run test:package   # package smoke test (plain Node.js)
+npm run build      # esbuild bundle + tsc declarations -> dist/index.js + .d.ts
 ```
+
+`npm run build:bun` keeps the original Bun-based build for environments that
+have bun installed.
 
 ## Distribution
 
@@ -166,7 +176,6 @@ npm pack           # prepack runs the build, emits argabor-caveman-opencode-plug
 ```
 
 Install the tarball on another machine:
-
 ```sh
 tar -xzf argabor-caveman-opencode-plugin-*.tgz
 # Option A: point plugins at the extracted package/ directory in opencode.json(c)
