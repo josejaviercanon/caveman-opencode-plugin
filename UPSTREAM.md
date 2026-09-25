@@ -13,6 +13,8 @@
 
 The prompt strings in `src/skills/*.ts` carry upstream's behavioral rules, intensity levels, examples, auto-clarity exceptions, and boundaries.
 
+**Last prompt sync:** 2026-09-25, against upstream `main` (`skills/caveman/SKILL.md`, `skills/caveman-commit/SKILL.md`, `skills/caveman-review/SKILL.md`). Notably `ultra` no longer instructs prose abbreviations or causal arrows, and the core rules now include negation safety, ASD-STE100 clarity register, language preservation, and the "never add words" rule.
+
 ## Intentional Differences
 
 | Area | This Plugin | Upstream |
@@ -23,6 +25,7 @@ The prompt strings in `src/skills/*.ts` carry upstream's behavioral rules, inten
 | **caveman-help** | Not included — OpenCode has `/help` built-in | Included |
 | **caveman-shrink / cavecrew** | Not included — MCP middleware, OpenCode not affected | Included |
 | **Auto-activation** | Via hook `experimental.chat.system.transform` with session state | Via flag file, env vars, `CAVEMAN_DEFAULT_MODE` |
+| **Mode aliases** | `/caveman normal` and `/caveman stop` map to `off` | Natural-language "normal mode" / "stop caveman" only |
 | **Mode persistence** | Per-session in-memory (via `state.ts`) | File-based flag files |
 | **Multi-agent support** | No — OpenCode single-agent | 30+ agents |
 | **Config** | `caveman.json` (project or global) | `~/.config/caveman/config.json` + env vars |

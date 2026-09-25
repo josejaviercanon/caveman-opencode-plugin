@@ -48,7 +48,7 @@ const cavemanV1: Plugin = async () => {
 
     'command.execute.before': async (input, output) => {
       const cmd = (output as any).command ?? input.command
-      const args = ((output as any).args ?? input.arguments).trim()
+      const args = String((output as any).args ?? input.arguments ?? '').trim()
       const text = dispatchCommand(cmd, args, input.sessionID)
       if (text === null) return
       output.parts = [{ type: 'text', text } as Part]

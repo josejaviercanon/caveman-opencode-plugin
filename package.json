@@ -1,6 +1,6 @@
 {
   "name": "@argabor/caveman-opencode-plugin",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Caveman communication mode plugin for opencode (V1 and V2)",
   "type": "module",
   "main": "./dist/index.js",
@@ -15,7 +15,7 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": ["dist", "index.js"],
   "publishConfig": {
     "access": "public"
   },
@@ -26,6 +26,7 @@
   "homepage": "https://github.com/argabor/caveman-opencode-plugin#readme",
   "scripts": {
     "build": "bun run build.ts && tsc --emitDeclarationOnly",
+    "prepack": "bun run build",
     "dev": "opencode plugin dev",
     "setup": "bun run src/setup.ts",
     "test": "bun test",

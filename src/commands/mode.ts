@@ -1,6 +1,9 @@
 import { setMode, getMode } from '../state'
 import { loadConfig, CAVEMAN_MODES, isCavemanMode } from '../config'
 
+/** `/caveman normal` and `/caveman stop` are documented aliases for `off`. */
+const MODE_ALIASES: Record<string, string> = { normal: 'off', stop: 'off' }
+
 export function handleMode(sessionId: string, args: string[]): { message: string } {
   const cfg = loadConfig().config
   if (!cfg.features.caveman) {
@@ -8,21 +11,22 @@ export function handleMode(sessionId: string, args: string[]): { message: string
   }
 
   const requested = args[0]?.toLowerCase()
+  const mode = requested ? MODE_ALIASES[requested] ?? requested : undefined
 
-  if (!requested) {
-    const mode = getMode(sessionId)
-    return { message: `Mode: ${mode}. Use /caveman-mode ${CAVEMAN_MODES.join('|')}` }
+  if (!mode) {
+    const current = getMode(sessionId)
+    return { message: `Mode: ${current}. Use /caveman-mode ${CAVEMAN_MODES.join('|')} (alias: normal)` }
   }
 
-  if (!isCavemanMode(requested)) {
-    return { message: `Bad mode. Valid: ${CAVEMAN_MODES.join(', ')}` }
+  if (!isCavemanMode(mode)) {
+    return { message: `Bad mode. Valid: ${CAVEMAN_MODES.join(', ')} (alias: normal -> off)` }
   }
 
-  setMode(sessionId, requested)
+  setMode(sessionId, mode)
 
-  if (requested === 'off') {
+  if (mode === 'off') {
     return { message: 'Caveman mode off.' }
   }
 
-  return { message: `Caveman mode ${requested}.` }
+  return { message: `Caveman mode ${mode}.` }
 }

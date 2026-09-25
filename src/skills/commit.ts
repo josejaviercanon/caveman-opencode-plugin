@@ -7,6 +7,7 @@ Subject line:
 - Imperative mood: "add", "fix", "remove" — not "added", "adds", "adding"
 - ≤50 chars when possible, hard cap 72
 - No trailing period
+- Match project convention for capitalization after the colon
 
 Body (only if needed):
 - Skip entirely when subject is self-explanatory
@@ -18,7 +19,8 @@ Body (only if needed):
 Never include:
 - "This commit does X", "I", "we", "now", "currently" — diff says what
 - "As requested by..." — use Co-authored-by trailer
-- AI attribution or emoji (unless project convention requires)
+- "Generated with Claude Code" or any AI attribution — unless the user's own rule requires an Assisted-by/AI-attribution trailer, then add it as a trailer
+- Emoji (unless project convention requires)
 - Restating file name when scope already says it
 
 Examples:
@@ -29,7 +31,7 @@ Wrong: "feat: add a new endpoint to get user profile information from the databa
 Diff: breaking API change
 Correct: "feat(api)!: rename /v1/orders to /v1/checkout\n\nBREAKING CHANGE: clients on /v1/orders must migrate to /v1/checkout\nbefore 2026-06-01. Old route returns 410 after that date."
 
-Auto-clarity: always include body for breaking changes, security fixes, data migrations, reverts. Never compress these into subject-only.
+Auto-clarity: always include body for breaking changes, security fixes, data migrations, anything reverting a prior commit. Never compress these into subject-only — future debuggers need the context.
 
-Boundaries: only generates commit message. Does not run git commit, does not stage files. Output as code block ready to paste. "stop caveman-commit" or "normal mode": revert to verbose style.`
+Boundaries: only generates commit message. Does not run git commit, does not stage files, does not amend. Output as code block ready to paste. "stop caveman-commit" or "normal mode": revert to verbose style.`
 }

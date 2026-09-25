@@ -30,6 +30,20 @@ describe('commands', () => {
     expect(getState('cmd-d').currentMode).toBe('off')
   })
 
+  it('handleMode accepts normal as alias for off', () => {
+    setMode('cmd-d2', 'full')
+    const res = handleMode('cmd-d2', ['normal'])
+    expect(res.message).toContain('off')
+    expect(getState('cmd-d2').currentMode).toBe('off')
+  })
+
+  it('handleMode accepts stop as alias for off', () => {
+    setMode('cmd-d3', 'ultra')
+    const res = handleMode('cmd-d3', ['stop'])
+    expect(res.message).toContain('off')
+    expect(getState('cmd-d3').currentMode).toBe('off')
+  })
+
   it('handleCommit returns system instruction', () => {
     const res = handleCommit('cmd-e', [])
     expect(res.systemInstruction).toBeDefined()
